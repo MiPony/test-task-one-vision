@@ -876,8 +876,8 @@ a:hover, a:focus, a:active {
 }
 #content {
 	text-align: left;
-	width: 60%;
-	margin: 0 auto;
+	width: 100%;
+	margin: 0;
 	margin-top: 30px;
 }
 .masonryinside {
@@ -1863,6 +1863,25 @@ img {
 }
  @media only screen and (max-width: 720px) {
  #content {
- width: 90%;
+ width: 100%;
 }
+}
+/* .custom-flex{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 100%;
+}
+.custom-flex .item{
+	margin: 20px;
+	padding: 20px 40px;
+	width: 21%;
+} */
+.custom-flex{
+	column-count: 4;
+	column-gap: 20px;
+}
+.custom-flex .item{
+	display: grid;
+	grid-template-rows: auto 1fr;
 }

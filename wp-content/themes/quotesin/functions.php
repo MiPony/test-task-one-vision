@@ -238,3 +238,45 @@ function arts_post_type() {
 }
 add_action( 'init', 'arts_post_type', 0 );
 
+// Shortcode
+function shortcode_art( $atts ) {
+	//default arguments
+	$args = shortcode_atts( array(
+		'category_name' => '',
+		'order' => '',
+		'orderby' => '',
+		'posts_per_page'=> -1,
+		'post_type' => 'art'
+	), $atts );
+	
+	$content = "";
+	
+	// The Query
+	$the_query = new WP_Query( $args );
+	
+	// The Loop
+	if ( $the_query->have_posts() ) {
+
+		$content .= '<div class="custom-flex">';
+
+		while ( $the_query->have_posts() ) {
+			$the_query->the_post();
+
+			$content .= '<div class="inside item">';
+			$content .= '<div class="quotetitle">'.get_the_title().'</div>';
+			$content .= '<div class=""><p><a href="'.get_permalink().'">'.get_the_content().'</a></p></div>';
+			$content .= '<div class="collapsible-content"><p>'.get_the_post_thumbnail( null, 'post-thumbnail').'</p></div>';
+			$content .= '</div>';
+		}
+	
+		$content .= '</div>';
+	
+	} else {
+		$content .= "No Arts found";
+	}
+	/* Restore original Post Data */
+	wp_reset_postdata();
+	
+	return $content;
+	}
+	add_shortcode( 'art', 'shortcode_art' );
